@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/bg_main">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingStart="8dp">
+        <ImageButton
+            android:id="@+id/btnBack"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@android:drawable/ic_media_previous"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:tint="@color/text_primary"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="5-Min Relaxation"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/text_primary"
+            android:layout_marginStart="8dp"/>
+    </LinearLayout>
+
+    <ScrollView android:layout_width="match_parent" android:layout_height="match_parent">
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:orientation="vertical" android:padding="16dp">
+
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="Choose a relaxation exercise"
+                android:textSize="15sp" android:textColor="@color/text_secondary"
+                android:layout_marginBottom="16dp"/>
+
+            <!-- Breathing -->
+            <androidx.cardview.widget.CardView android:id="@+id/cardBreathingRelax"
+                android:layout_width="match_parent" android:layout_height="80dp"
+                android:layout_marginBottom="12dp"
+                app:cardCornerRadius="16dp" app:cardBackgroundColor="#E8F5E9" app:cardElevation="4dp">
+                <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent"
+                    android:orientation="horizontal" android:gravity="center_vertical" android:padding="16dp">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="💨" android:textSize="32sp"/>
+                    <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
+                        android:layout_weight="1" android:orientation="vertical" android:layout_marginStart="16dp">
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            android:text="Guided Breathing" android:textSize="16sp" android:textStyle="bold"
+                            android:textColor="@color/text_primary"/>
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            android:text="4-7-8, Box, or 4-4-2 technique" android:textSize="13sp"
+                            android:textColor="@color/text_secondary"/>
+                    </LinearLayout>
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="›" android:textSize="24sp" android:textColor="@color/text_secondary"/>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Meditation -->
+            <androidx.cardview.widget.CardView android:id="@+id/cardMeditation"
+                android:layout_width="match_parent" android:layout_height="80dp"
+                android:layout_marginBottom="12dp"
+                app:cardCornerRadius="16dp" app:cardBackgroundColor="#E3F2FD" app:cardElevation="4dp">
+                <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent"
+                    android:orientation="horizontal" android:gravity="center_vertical" android:padding="16dp">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="🧘" android:textSize="32sp"/>
+                    <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
+                        android:layout_weight="1" android:orientation="vertical" android:layout_marginStart="16dp">
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            android:text="Mindfulness Meditation" android:textSize="16sp" android:textStyle="bold"
+                            android:textColor="@color/text_primary"/>
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            android:text="5 min guided session" android:textSize="13sp"
+                            android:textColor="@color/text_secondary"/>
+                    </LinearLayout>
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="›" android:textSize="24sp" android:textColor="@color/text_secondary"/>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Body Scan -->
+            <androidx.cardview.widget.CardView android:id="@+id/cardBodyScan"
+                android:layout_width="match_parent" android:layout_height="80dp"
+                android:layout_marginBottom="12dp"
+                app:cardCornerRadius="16dp" app:cardBackgroundColor="#FFF8E1" app:cardElevation="4dp">
+                <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent"
+                    android:orientation="horizontal" android:gravity="center_vertical" android:padding="16dp">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="🌊" android:textSize="32sp"/>
+                    <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
+                        android:layout_weight="1" android:orientation="vertical" android:layout_marginStart="16dp">
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            android:text="Body Scan" android:textSize="16sp" android:textStyle="bold"
+                            android:textColor="@color/text_primary"/>
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            android:text="Release tension from head to toe" android:textSize="13sp"
+                            android:textColor="@color/text_secondary"/>
+                    </LinearLayout>
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="›" android:textSize="24sp" android:textColor="@color/text_secondary"/>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Visualization -->
+            <androidx.cardview.widget.CardView android:id="@+id/cardVisualize"
+                android:layout_width="match_parent" android:layout_height="80dp"
+                android:layout_marginBottom="12dp"
+                app:cardCornerRadius="16dp" app:cardBackgroundColor="#F3E5F5" app:cardElevation="4dp">
+                <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent"
+                    android:orientation="horizontal" android:gravity="center_vertical" android:padding="16dp">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="🏖️" android:textSize="32sp"/>
+                    <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
+                        android:layout_weight="1" android:orientation="vertical" android:layout_marginStart="16dp">
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            android:text="Peaceful Visualization" android:textSize="16sp" android:textStyle="bold"
+                            android:textColor="@color/text_primary"/>
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            android:text="A journey to your calm place" android:textSize="13sp"
+                            android:textColor="@color/text_secondary"/>
+                    </LinearLayout>
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="›" android:textSize="24sp" android:textColor="@color/text_secondary"/>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Gratitude -->
+            <androidx.cardview.widget.CardView android:id="@+id/cardGratitude"
+                android:layout_width="match_parent" android:layout_height="80dp"
+                android:layout_marginBottom="12dp"
+                app:cardCornerRadius="16dp" app:cardBackgroundColor="#FCE4EC" app:cardElevation="4dp">
+                <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent"
+                    android:orientation="horizontal" android:gravity="center_vertical" android:padding="16dp">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="🙏" android:textSize="32sp"/>
+                    <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
+                        android:layout_weight="1" android:orientation="vertical" android:layout_marginStart="16dp">
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            android:text="Gratitude Practice" android:textSize="16sp" android:textStyle="bold"
+                            android:textColor="@color/text_primary"/>
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            android:text="Shift your mindset with gratitude" android:textSize="13sp"
+                            android:textColor="@color/text_secondary"/>
+                    </LinearLayout>
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="›" android:textSize="24sp" android:textColor="@color/text_secondary"/>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Affirmations -->
+            <androidx.cardview.widget.CardView android:id="@+id/cardAffirmations"
+                android:layout_width="match_parent" android:layout_height="80dp"
+                android:layout_marginBottom="12dp"
+                app:cardCornerRadius="16dp" app:cardBackgroundColor="#E8EAF6" app:cardElevation="4dp">
+                <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent"
+                    android:orientation="horizontal" android:gravity="center_vertical" android:padding="16dp">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="⭐" android:textSize="32sp"/>
+                    <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
+                        android:layout_weight="1" android:orientation="vertical" android:layout_marginStart="16dp">
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            android:text="Positive Affirmations" android:textSize="16sp" android:textStyle="bold"
+                            android:textColor="@color/text_primary"/>
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            android:text="Build inner strength" android:textSize="13sp"
+                            android:textColor="@color/text_secondary"/>
+                    </LinearLayout>
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="›" android:textSize="24sp" android:textColor="@color/text_secondary"/>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
