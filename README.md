@@ -2,6 +2,16 @@
 
 A complete Android Studio mental health app with mood tracking and 5-minute relaxation tools.
 
+
+> [!IMPORTANT]
+> **Medical Disclaimer:** This application is a self-care wellness and habit-tracking project developed strictly for educational and academic purposes. It is **NOT** a clinical diagnostic tool, medical device, or substitute for professional mental healthcare, psychiatric consultation, or crisis intervention. If you are experiencing a mental health emergency, please contact professional emergency support services or a certified healthcare provider.
+
+---
+
+## 📌 Project Status & Architecture Note
+- **Platform:** Native Android Application (Java 8+, Android SDK API 34)
+- **Local Storage:** SQLite (`DatabaseHelper.java`) — 100% offline-first, zero telemetry or cloud tracking for user privacy.
+- **Status:** Functional Academic Wellness MVP
 ---
 
 ## 📱 Features
