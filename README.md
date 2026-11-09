@@ -1,6 +1,10 @@
-# MindTracker — Native Android Mental Health & Mindfulness Suite 🧠📱
+# Mental Health Tracker — Native Android Mindfulness & Emotional Intelligence Suite 🧠📱
 
 <div align="center">
+
+  <img src="./app_poster.jpg" alt="Mental Health Tracker Branding Poster" width="680" style="border-radius: 16px; margin-bottom: 16px; box-shadow: 0 8px 24px rgba(0,0,0,0.3);"/>
+
+  <br/>
 
 [![Android SDK](https://img.shields.io/badge/Platform-Android%20SDK%20(API%2034)-3DDC84?style=for-the-badge&logo=android&logoColor=white)](https://developer.android.com/)
 [![Java](https://img.shields.io/badge/Language-Java%208+-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)](https://www.java.com/)
