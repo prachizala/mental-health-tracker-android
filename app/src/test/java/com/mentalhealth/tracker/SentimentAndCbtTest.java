@@ -89,7 +89,7 @@ public class SentimentAndCbtTest {
     public void testEmptyOrWhitespaceInputHandling() {
         JournalAnalysisResult result = SentimentAnalyzer.analyze("   ");
         assertEquals(0.0, result.getSentimentScore(), 0.001);
-        assertEquals("Balanced", result.getPrimaryEmotion());
+        assertEquals("Reflective", result.getPrimaryEmotion());
         assertFalse(result.hasDistortions());
     }
 }

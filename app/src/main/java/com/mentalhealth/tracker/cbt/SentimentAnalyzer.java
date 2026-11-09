@@ -91,7 +91,7 @@ public class SentimentAnalyzer {
         if (text == null || text.trim().isEmpty()) {
             return new JournalAnalysisResult(
                 0.0,
-                "Neutral ⚪",
+                "Neutral \u26AA",
                 "Reflective",
                 Collections.emptyList(),
                 "Writing is the first step toward mental clarity. Be gentle with yourself today."
@@ -156,7 +156,7 @@ public class SentimentAnalyzer {
         for (CognitiveDistortionDetector.DistortionMatch match : distortionMatches) {
             distortionNames.add(match.name);
             if (cbtReframe.length() > 0) cbtReframe.append("\n\n");
-            cbtReframe.append("💡 ").append(match.name).append(":\n").append(match.reframePrompt);
+            cbtReframe.append("\uD83D\uDCA1 ").append(match.name).append(":\n").append(match.reframePrompt);
         }
 
         // Emotional Categorization
@@ -164,34 +164,34 @@ public class SentimentAnalyzer {
         String primaryEmotion;
 
         if (normalizedScore >= 0.35) {
-            sentimentLabel = "Positive & Uplifting ✨";
+            sentimentLabel = "Positive & Uplifting \u2728";
             primaryEmotion = text.toLowerCase().contains("grateful") || text.toLowerCase().contains("thank") ? "Grateful" : "Optimistic";
             if (cbtReframe.length() == 0) {
-                cbtReframe.append("🌟 Wonderful reflection! Savor this positive moment—it builds emotional resilience.");
+                cbtReframe.append("\uD83C\uDF1F Wonderful reflection! Savor this positive moment\u2014it builds emotional resilience.");
             }
         } else if (normalizedScore >= 0.10) {
-            sentimentLabel = "Calm & Reflective 🌿";
+            sentimentLabel = "Calm & Reflective \uD83C\uDF3F";
             primaryEmotion = "Calm";
             if (cbtReframe.length() == 0) {
-                cbtReframe.append("🌿 Balanced perspective. Staying present with your thoughts is an act of mindfulness.");
+                cbtReframe.append("\uD83C\uDF3F Balanced perspective. Staying present with your thoughts is an act of mindfulness.");
             }
         } else if (normalizedScore > -0.15) {
-            sentimentLabel = "Neutral & Observant ⚪";
+            sentimentLabel = "Neutral & Observant \u26AA";
             primaryEmotion = "Balanced";
             if (cbtReframe.length() == 0) {
-                cbtReframe.append("📝 A thoughtful and grounded reflection. Every feeling is valid.");
+                cbtReframe.append("\uD83D\uDCDD A thoughtful and grounded reflection. Every feeling is valid.");
             }
         } else if (normalizedScore > -0.45) {
-            sentimentLabel = "Mild Stress / Anxious 🌧️";
+            sentimentLabel = "Mild Stress / Anxious \uD83C\uDF27";
             primaryEmotion = "Stressed";
             if (cbtReframe.length() == 0) {
-                cbtReframe.append("🌧️ You seem to be carrying tension today. Remember to pause and take a 4-7-8 breathing session.");
+                cbtReframe.append("\uD83C\uDF27 You seem to be carrying tension today. Remember to pause and take a 4-7-8 breathing session.");
             }
         } else {
-            sentimentLabel = "Overwhelmed / Low ⛈️";
+            sentimentLabel = "Overwhelmed / Low \u26C8";
             primaryEmotion = "Overwhelmed";
             if (cbtReframe.length() == 0) {
-                cbtReframe.append("⛈️ This feels heavy right now. Acknowledge the feeling without judgment—it will pass with time.");
+                cbtReframe.append("\u26C8 This feels heavy right now. Acknowledge the feeling without judgment\u2014it will pass with time.");
             }
         }
 
