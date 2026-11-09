@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.mentalhealth.tracker">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <application
         android:allowBackup="true"
@@ -10,7 +9,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".MainActivity"
+        <activity
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -18,15 +18,20 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".RelaxActivity"
+        <activity
+            android:name=".RelaxActivity"
             android:exported="false"/>
-        <activity android:name=".RelaxSessionActivity"
+        <activity
+            android:name=".RelaxSessionActivity"
             android:exported="false"/>
-        <activity android:name=".BreathingActivity"
+        <activity
+            android:name=".BreathingActivity"
             android:exported="false"/>
-        <activity android:name=".JournalActivity"
+        <activity
+            android:name=".JournalActivity"
             android:exported="false"/>
-        <activity android:name=".HistoryActivity"
+        <activity
+            android:name=".HistoryActivity"
             android:exported="false"/>
 
     </application>

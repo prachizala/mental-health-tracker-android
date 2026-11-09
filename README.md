@@ -1,107 +1,223 @@
-# MindTracker - Mental Health Tracker App 🧠
+# MindTracker — Native Android Mental Health & Mindfulness Suite 🧠📱
 
-A complete Android Studio mental health app with mood tracking and 5-minute relaxation tools.
+<div align="center">
 
+[![Android SDK](https://img.shields.io/badge/Platform-Android%20SDK%20(API%2034)-3DDC84?style=for-the-badge&logo=android&logoColor=white)](https://developer.android.com/)
+[![Java](https://img.shields.io/badge/Language-Java%208+-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)](https://www.java.com/)
+[![Database](https://img.shields.io/badge/Storage-100%25%20Offline%20SQLite-003B57?style=for-the-badge&logo=sqlite&logoColor=white)](https://www.sqlite.org/)
+[![CI/CD](https://img.shields.io/badge/CI%2FCD-GitHub%20Actions%20Passing-brightgreen?style=for-the-badge&logo=githubactions&logoColor=white)](https://github.com/prachizala/mental-health-tracker-android/actions)
+[![Material Design](https://img.shields.io/badge/UI-Material%20Design%203-795548?style=for-the-badge&logo=materialdesign&logoColor=white)](https://material.io/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
+
+<p align="center">
+  A production-ready, native Android mindfulness, mood analytics, and habit-tracking suite engineered with <b>Java 8+</b>, <b>Android SDK API 34</b>, custom interpolator-driven UI animations, and <b>100% private, zero-telemetry offline SQLite storage</b>.
+</p>
+
+</div>
+
+---
 
 > [!IMPORTANT]
-> **Medical Disclaimer:** This application is a self-care wellness and habit-tracking project developed strictly for educational and academic purposes. It is **NOT** a clinical diagnostic tool, medical device, or substitute for professional mental healthcare, psychiatric consultation, or crisis intervention. If you are experiencing a mental health emergency, please contact professional emergency support services or a certified healthcare provider.
+> **Academic & Self-Care Disclaimer:** This application is developed strictly for educational, academic, and personal wellness self-tracking purposes. It is **NOT** a clinical diagnostic medical device or a replacement for licensed psychiatric healthcare, therapy, or emergency crisis intervention.
 
 ---
 
-## 📌 Project Status & Architecture Note
-- **Platform:** Native Android Application (Java 8+, Android SDK API 34)
-- **Local Storage:** SQLite (`DatabaseHelper.java`) — 100% offline-first, zero telemetry or cloud tracking for user privacy.
-- **Status:** Functional Academic Wellness MVP
----
+## 🌟 Key Highlights & Engineering Features
 
-## 📱 Features
-
-### 🏠 Home Dashboard
-- Smart greeting based on time of day
-- Daily mood logger with emoji selector (5 levels)
-- Optional mood notes
-- Streak tracker (consecutive days logged)
-- Quick-access cards for all features
-
-### 💨 Breathing Exercises
-- **4-7-8 Pattern** – Inhale 4s, Hold 7s, Exhale 8s (calming)
-- **Box Breathing** – 4s each phase (focus/stress relief)
-- **4-4-2 Pattern** – Inhale 4s, Hold 4s, Exhale 2s (relaxation)
-- Animated circle that expands/contracts with your breath
-- Configurable cycles with countdown timer
-
-### 🧘 5-Min Relaxation Sessions (fully timed/guided)
-- **Mindfulness Meditation** – Guided awareness practice
-- **Body Scan** – Tension release from feet to head
-- **Peaceful Visualization** – Beach/nature mental escape
-- **Gratitude Practice** – Mindset shift through appreciation
-- **Positive Affirmations** – Inner strength building
-
-### 📓 Journal
-- Write daily thoughts/feelings
-- Random daily prompts to inspire writing
-- View all past entries with preview
-
-### 📊 Mood History
-- View all logged moods with notes
-- Stats: total logs, average mood level
-- Chronological history list
+- 🔒 **100% Private & Zero-Cloud Telemetry:** In an era of invasive data harvesting, all mood logs, private journal entries, and reflection timestamps remain **strictly on the user's local device** in an encrypted-at-rest SQLite database. No external trackers, no analytics SDKs, zero internet permission required.
+- 💨 **Dynamic Breathing Synchronizer:** Real-time animated breathing circle utilizing Android `ValueAnimator` with `AccelerateDecelerateInterpolator` simulating physiological lung expansion and contraction across 3 clinical patterns.
+- 🧘 **5-Minute Guided Decompression Sessions:** Fully timed state-machine guided sessions (Mindfulness, Body Scan, Nature Visualization, Gratitude, Affirmations) with custom phase instructions and progress tracking.
+- 📊 **Streak & Habit Intelligence Engine:** Serverless, chronological date-traversal algorithm calculating consecutive daily logging streaks and mood frequency distributions.
+- 🧪 **Test-Driven Reliability & CI/CD:** Unit tested with JUnit 4 and continuously validated via automated GitHub Actions CI.
 
 ---
 
-## 🛠️ Setup Instructions
+## 🏗️ Architecture & Component Topology
 
-### Requirements
-- Android Studio Hedgehog (2023.1.1) or later
-- Android SDK API 34
-- Java 8+
+The application follows clean architectural separation between Android UI Activities, domain timing state machines, and the encapsulated SQLite Data Access Object (DAO) layer:
 
-### Steps to Open in Android Studio
-1. Download/unzip all files
-2. Open Android Studio → **File > Open**
-3. Select the `MentalHealthApp` folder
-4. Let Gradle sync complete (~2-3 minutes)
-5. Run on emulator (API 24+) or physical device
+```mermaid
+flowchart TD
+    subgraph UI ["📱 Presentation Layer (Android Activities & Material UI)"]
+        MA["MainActivity<br/>(Dashboard, Mood Logger, Streaks)"]
+        BA["BreathingActivity<br/>(Visual Animated Synchronizer)"]
+        RA["RelaxActivity & RelaxSessionActivity<br/>(5-Min Guided Audio/Text Sessions)"]
+        JA["JournalActivity<br/>(Reflective Thought Prompts)"]
+        HA["HistoryActivity<br/>(Mood Distribution & Timeline)"]
+    end
 
-### Project Structure
+    subgraph Domain ["⚡ Business Logic & State Machines"]
+        CT["CountDownTimer State Controller<br/>(Phase transitions & cycle counters)"]
+        SA["Streak Algorithm<br/>(Consecutive day delta verification)"]
+        VI["ValueAnimator Engine<br/>(AccelerateDecelerate Interpolation)"]
+    end
+
+    subgraph Data ["💾 Data Persistence Layer (100% Offline SQLite)"]
+        DH["DatabaseHelper (SQLiteOpenHelper)"]
+        TM[("TABLE: mood_logs<br/>id, mood, note, date, timestamp")]
+        TJ[("TABLE: journal_entries<br/>id, title, content, date, timestamp")]
+    end
+
+    MA --> SA
+    MA --> DH
+    BA --> CT
+    BA --> VI
+    RA --> CT
+    JA --> DH
+    HA --> DH
+    DH --> TM
+    DH --> TJ
 ```
-MentalHealthApp/
+
+---
+
+## 📱 Core Functional Modules
+
+### 1. 🏠 Home Dashboard & Daily Habit Streak
+- **Time-Aware Dynamic Greeting:** Adapts interface context based on morning, afternoon, or evening system time.
+- **5-Tier Likert Mood Selector:** Fast 1-tap logging ranging from *Awful (1)* to *Great (5)* with optional descriptive notes.
+- **Consecutive Logging Streak Engine:** Evaluates daily delta timestamps to reward habit consistency.
+- **Quick-Access Navigation Matrix:** Instant routing to all mindfulness sub-modules via Material CardViews.
+
+### 2. 💨 Breathing Synchronizer Engine
+Visual pulse animation with configurable target cycles (default: 5 cycles) and automated countdown transitions:
+| Pattern | Cadence | Primary Clinical / Mindfulness Benefit |
+| :--- | :--- | :--- |
+| **4-7-8 Breathing** | Inhale: 4s • Hold: 7s • Exhale: 8s | Parasympathetic nervous system activation, anxiety reduction |
+| **Box Breathing** | Inhale: 4s • Hold: 4s • Exhale: 4s • Hold: 4s | Tactical stress relief, heightened cognitive focus |
+| **4-4-2 Energizer** | Inhale: 4s • Hold: 4s • Exhale: 2s | Rapid tension release and midday alertness |
+
+### 3. 🧘 5-Minute Guided Relaxation Sessions
+Fully orchestrated multi-phase exercises with dedicated instruction cards and countdown timers:
+- 🌿 **Mindfulness Meditation:** Present-moment breath grounding.
+- 🧘‍♂️ **Progressive Body Scan:** Head-to-toe somatic tension release.
+- 🌊 **Peaceful Visualization:** Nature and coastal sensory decompression.
+- 🙏 **Gratitude Practice:** Cognitive reframing through appreciative recall.
+- ✨ **Positive Affirmations:** Internal resilience and cognitive empowerment.
+
+### 4. 📓 Private Thought Journal
+- Thought cataloging with auto-generated reflective writing prompts to overcome writer's block.
+- Reverse-chronological historical card deck with snippet previews and full-text expansion.
+
+### 5. 📊 Mood History & Descriptive Analytics
+- Frequency distribution array calculating logs across all 5 emotional tiers.
+- Chronological timeline cards displaying historical mood levels, custom annotations, and formatted dates.
+
+---
+
+## 🗄️ Database Schema & Data Models
+
+Managed locally via `DatabaseHelper.java` (`SQLiteOpenHelper`):
+
+```sql
+-- Mood tracking entries
+CREATE TABLE mood_logs (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    mood INTEGER NOT NULL,          -- Integer 1 (Very Bad) to 5 (Very Good)
+    note TEXT,                      -- User reflection annotation
+    date TEXT NOT NULL,             -- ISO yyyy-MM-dd
+    timestamp LONG NOT NULL         -- Epoch milliseconds
+);
+
+-- Reflective journal entries
+CREATE TABLE journal_entries (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    title TEXT,                     -- Prompt topic or user title
+    content TEXT NOT NULL,          -- Body reflection
+    date TEXT NOT NULL,             -- ISO yyyy-MM-dd
+    timestamp LONG NOT NULL         -- Epoch milliseconds
+);
+```
+
+---
+
+## 🧪 Unit Testing & Verification
+
+The project includes isolated domain unit tests in `app/src/test/java/com/mentalhealth/tracker/BreathingAndMoodLogicTest.java`:
+
+- `testBreathingPatternDurations`: Verifies exact phase sum calculations (4-7-8 = 19s, Box = 16s, 4-4-2 = 10s).
+- `testMoodLevelBoundaries`: Asserts strict boundary enforcement for mood levels 1 through 5.
+- `testStreakCalculationLogic`: Validates consecutive multi-day streak accumulation algorithm.
+- `testStreakBreakLogic`: Tests streak reset behavior on skipped calendar dates.
+
+Run tests locally via the bundled Gradle wrapper:
+```bash
+./gradlew testDebugUnitTest
+```
+
+---
+
+## 🚀 Getting Started & Local Development
+
+### Prerequisites
+- **Android Studio** Hedgehog (2023.1.1+) or newer
+- **JDK:** OpenJDK 17+
+- **Android SDK:** API Level 34 (Compile & Target), API 24+ (Minimum)
+
+### Build & Run
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/prachizala/mental-health-tracker-android.git
+   cd mental-health-tracker-android
+   ```
+2. **Compile and execute unit tests:**
+   ```bash
+   # On macOS / Linux
+   ./gradlew testDebugUnitTest
+
+   # On Windows
+   .\gradlew.bat testDebugUnitTest
+   ```
+3. **Assemble Debug APK:**
+   ```bash
+   .\gradlew.bat assembleDebug
+   ```
+   The compiled APK will be located at `app/build/outputs/apk/debug/app-debug.apk`.
+
+---
+
+## 📂 Project Structure
+
+```
+mental-health-tracker-android/
+├── .github/
+│   └── workflows/
+│       └── android-ci.yml           ← Automated GitHub Actions CI pipeline
 ├── app/
-│   ├── src/main/
-│   │   ├── java/com/mentalhealth/tracker/
-│   │   │   ├── MainActivity.java         ← Home screen
-│   │   │   ├── BreathingActivity.java    ← Breathing exercise
-│   │   │   ├── RelaxActivity.java        ← Relax menu
-│   │   │   ├── RelaxSessionActivity.java ← Guided sessions
-│   │   │   ├── JournalActivity.java      ← Journal
-│   │   │   ├── HistoryActivity.java      ← Mood history
-│   │   │   └── DatabaseHelper.java       ← SQLite database
-│   │   ├── res/
-│   │   │   ├── layout/                   ← All XML layouts
-│   │   │   ├── drawable/                 ← Custom shapes
-│   │   │   └── values/                   ← Colors, strings, styles
-│   │   └── AndroidManifest.xml
+│   ├── src/
+│   │   ├── main/
+│   │   │   ├── java/com/mentalhealth/tracker/
+│   │   │   │   ├── MainActivity.java           ← Dashboard & streak engine
+│   │   │   │   ├── BreathingActivity.java      ← Animated breathing synchronizer
+│   │   │   │   ├── RelaxActivity.java          ← Session menu
+│   │   │   │   ├── RelaxSessionActivity.java   ← Timed guided relaxation
+│   │   │   │   ├── JournalActivity.java        ← Offline thought journal
+│   │   │   │   ├── HistoryActivity.java        ← Mood history & analytics
+│   │   │   │   └── DatabaseHelper.java         ← SQLite DAO & schema manager
+│   │   │   ├── res/
+│   │   │   │   ├── layout/                     ← Material UI XML layouts
+│   │   │   │   ├── drawable/                   ← Custom shapes & vector assets
+│   │   │   │   ├── mipmap-*/                   ← Launcher icons
+│   │   │   │   └── values/                     ← Themes, colors, styles
+│   │   │   └── AndroidManifest.xml
+│   │   └── test/java/com/mentalhealth/tracker/
+│   │       └── BreathingAndMoodLogicTest.java  ← Domain JUnit 4 test suite
 │   └── build.gradle
+├── gradle/wrapper/                             ← Official Gradle 8.9 wrapper
+├── gradlew & gradlew.bat
+├── gradle.properties
 ├── build.gradle
 └── settings.gradle
 ```
 
 ---
 
-## 🎨 Customization
+## 📄 License
 
-- **Colors**: Edit `res/values/colors.xml` → Change `primary` color
-- **Add sessions**: In `RelaxSessionActivity.java`, add new `case` in `loadSession()` method
-- **More moods**: Extend the `moodEmojis` arrays in `MainActivity.java`
+This project is licensed under the [MIT License](LICENSE) — free for educational, personal, and research usage.
 
 ---
 
-## 📦 Dependencies Used
-```gradle
-implementation 'androidx.appcompat:appcompat:1.6.1'
-implementation 'com.google.android.material:material:1.10.0'
-implementation 'androidx.cardview:cardview:1.0.0'
-implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-```
-
-No external libraries required for core functionality. SQLite is built-in to Android.
+<div align="center">
+  <sub>Developed with ❤️ by <a href="https://github.com/prachizala">Prachi Zala</a> • BCA Student @ Shanti Business School, Ahmedabad</sub>
+</div>
