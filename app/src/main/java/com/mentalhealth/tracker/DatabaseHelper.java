@@ -11,7 +11,7 @@ import java.util.*;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DB_NAME = "MentalHealth.db";
-    private static final int DB_VERSION = 1;
+    private static final int DB_VERSION = 2;
 
     // Tables
     private static final String TABLE_MOOD = "mood_logs";
@@ -34,15 +34,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "id INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "title TEXT," +
                 "content TEXT NOT NULL," +
+                "sentiment TEXT," +
+                "emotion TEXT," +
                 "date TEXT NOT NULL," +
                 "timestamp LONG NOT NULL)");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_MOOD);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_JOURNAL);
-        onCreate(db);
+        if (oldVersion < 2) {
+            try {
+                db.execSQL("ALTER TABLE " + TABLE_JOURNAL + " ADD COLUMN sentiment TEXT DEFAULT 'Neutral ⚪'");
+                db.execSQL("ALTER TABLE " + TABLE_JOURNAL + " ADD COLUMN emotion TEXT DEFAULT 'Reflective'");
+            } catch (Exception ignored) {
+                // table might not exist yet or already has columns
+            }
+        }
     }
 
     private String getToday() {
@@ -117,22 +124,28 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return list;
     }
 
-    public void insertJournal(String title, String content) {
+    public void insertJournal(String title, String content, String sentiment, String emotion) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("title", title);
         values.put("content", content);
+        values.put("sentiment", sentiment != null ? sentiment : "Neutral ⚪");
+        values.put("emotion", emotion != null ? emotion : "Reflective");
         values.put("date", getToday());
         values.put("timestamp", System.currentTimeMillis());
         db.insert(TABLE_JOURNAL, null, values);
         db.close();
     }
 
+    public void insertJournal(String title, String content) {
+        insertJournal(title, content, "Neutral ⚪", "Reflective");
+    }
+
     public List<Map<String, String>> getAllJournals() {
         List<Map<String, String>> list = new ArrayList<>();
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.rawQuery(
-                "SELECT id, title, content, date FROM " + TABLE_JOURNAL + " ORDER BY timestamp DESC",
+                "SELECT id, title, content, date, sentiment, emotion FROM " + TABLE_JOURNAL + " ORDER BY timestamp DESC",
                 null);
         while (cursor.moveToNext()) {
             Map<String, String> row = new HashMap<>();
@@ -140,6 +153,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             row.put("title", cursor.getString(1));
             row.put("content", cursor.getString(2));
             row.put("date", cursor.getString(3));
+            row.put("sentiment", cursor.getString(4) != null ? cursor.getString(4) : "Neutral ⚪");
+            row.put("emotion", cursor.getString(5) != null ? cursor.getString(5) : "Reflective");
             list.add(row);
         }
         cursor.close();
