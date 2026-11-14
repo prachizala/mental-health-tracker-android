@@ -29,3 +29,12 @@ local.properties
 # OS-specific
 .DS_Store
 Thumbs.db
+
+# Tooling and agent configs
+.claude/
+.gemini/
+.cursor/
+.agent/
+CLAUDE.md
+AGENTS.md
+GEMINI.md
