@@ -1,0 +1,3 @@
+# Force GitHub Linguist to detect Java as the primary language instead of XML
+*.xml linguist-detectable=false
+*.java linguist-detectable=true
